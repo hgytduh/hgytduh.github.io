@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}
+        <title>Forums | ReachNetwork</title>
+{% endblock %}
+
+{% block content %}
+        <div id="pageID" data-page='forums'></div>
+        <div class="row">
+            <ul class="breadcrumbs">
+                <li><a href="/">Reach Network</a></li>
+                <li class="current"><a href="#">Forums</a></li>
+            </ul>
+        </div>
+        <div class="row panel">
+            <div class="small-12 columns">
+                <h2>Topics</h2>
+                <p>Please make sure that you post under the appropriate topic.
+                </p>
+            </div>
+        </div>
+        {% for t in topics %}
+        	<div class="row forumItem" data-url="/forums/{{t.title}}">
+        		<div class="small-12 columns">
+        			<h3>{{t.title}}</h3>
+        			<p>{{t.description}}</p>
+        		</div>
+        	</div>
+        {% endfor %}
+{% endblock %}
+
+{% block after %}
+<script src="/static/js/forums.js"></script>
+{% endblock %}

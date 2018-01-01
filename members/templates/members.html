@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}
+        <title>Survivors | ReachNetwork</title>
+{% endblock %}
+
+{% block content %}
+        <div id="pageID" data-page='members'></div>
+        <div class="row">
+            <ul class="breadcrumbs">
+                <li><a href="/">Reach Network</a></li>
+                <li class="current"><a href="#">Members</a></li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="small-12 columns panel">
+            <h2>Our Members</h2>
+                <p>Below is a list of players that are part of our community play with us.</p>
+            </div>
+        </div>
+        {% for u in users %}
+        	<div class="row panel">
+        		<div class="small-12 medium-4 columns">
+        			<h3>{{u.user.username}}</h3>
+        			<p>[{{u.title}}]</p>
+        		</div>
+        		<div class="small-12 medium-5 columns">
+        			{% if user.is_authenticated %}
+        				<ul>
+        					<li>Email : {{u.user.email}}</li>
+                            <li>IGN   : {{u.ign}}</li>
+        				</ul>
+        			{% else %}
+        				<p><a href="/members/login">Log in</a> to see this content</p>
+        			{% endif %}
+        		</div>
+                <div class="small-12 medium-3 columns">
+                    <a class="button right" href="/members/{{u.user.username}}">View Profile</a>
+                </div>
+        	</div>
+        {% endfor %}
+{% endblock %}

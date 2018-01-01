@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}
+        <title>New Post | ReachNetwork</title>
+{% endblock %}
+
+{% block content %}
+        <div id="pageID" data-page='forums'></div>
+        <div class="row">
+            <ul class="breadcrumbs">
+                <li><a href="/">Reach Network</a></li>
+                <li><a href="/forums">Forums</a></li>
+                <li><a href="/forums/{{topic.title}}">{{topic.title}}</a></li>
+                <li class="current"><a href="#">New Post</a></li>
+            </ul>
+        </div>
+        <div class="row panel">
+            <div class="small-12 columns">
+                <h2>Contribute To The Community</h2>
+                <p>Please do not post any profanities or illegal content. Doing so will result in the removal of your account.
+                </p>
+            </div>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="title">
+                    <label{% if form.title.errors %} class="error" {% endif %}>Title <small>required</small>
+                        {{form.title}}
+                    </label>
+                    {% if form.title.errors %} 
+                        <small class="error">{{form.title.errors.as_text}}</small>
+                    {% endif %}
+                </div>
+                <div class="text">
+                    <label{% if form.text.errors %} class="error" {% endif %}>Content<small>required</small>
+                        {{form.text}}
+                    </label>
+                    {% if form.text.errors %} 
+                        <small class="error">{{form.text.errors.as_text}}</small>
+                    {% endif %}
+                </div>
+                <small>You only get 1 shot at this. Editing content is not allowed...</small><br/>
+              <button type="submit" class="medium button success right">Submit</button>
+              <button class="medium warning button left" type="reset">Clear</button>
+            </form>
+        </div>
+{% endblock %}

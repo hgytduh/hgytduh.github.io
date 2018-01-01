@@ -1,0 +1,80 @@
+body{
+    background: #222222;
+}
+table{
+    background: none !important;
+    border: none !important;
+}
+.contain-to-grid ,.top-bar, .top-bar-section, .top-bar.expanded .title-area{
+    background: #F0D64E !important;
+}
+.right li a{
+    color: black !important;
+    background: #F0D64E !important;
+}
+.right li:not(.active) a:hover{
+    background: #94812A !important;
+}
+.right li.active a{
+    background: #222222 !important;
+    color: white !important;
+}
+.name{
+}
+.name h1 a, .toggle-topbar a span{
+    color: black !important;
+}
+.backText{
+    color: #888;
+}
+
+.panel{
+    background: #333 !important;
+    border-width: 0px !important;
+    border-bottom-left-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
+    border-top: #F0D64E solid 2px !important;
+    color: #888 !important;
+}
+#account, .breadcrumbs{
+    background: #333 !important;
+    border-width: 0px !important;
+    border-bottom-left-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
+    color: #888 !important;
+    text-align: center;
+}
+.forumItem, .forumReplyItem{
+    padding: 20px;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    background: #333 !important;
+    border-width: 0px !important;
+    border-radius: 5px !important;
+    color: #888 !important;
+}
+.forumItem:hover{
+    box-shadow: 0px 0px 5px 1px #F0D64E;
+    cursor: pointer;
+}
+p, label, p,li, li.current a{
+    color: #777 !important;
+}
+h2, h1, h3, h4, h5, h6{
+    color: white ! important;
+}
+.hoverTextoffline{
+    box-shadow: 0px 0px 5px 1px lightcoral;
+}
+.hoverTextoffline:hover{
+    box-shadow: 0px 0px 5px 3px lightcoral;
+}
+.hoverTextonline{
+    box-shadow: 0px 0px 5px 1px lightgreen;
+}
+.hoverTextonline:hover{
+    box-shadow: 0px 0px 5px 3px lightgreen;
+}
+.centerText{
+    text-align: center;
+}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}
+        <title>Login | ReachNetwork</title>
+{% endblock %}
+
+{% block content %}
+        <div id="pageID" data-page='members'></div>
+        <div class="row">
+            <ul class="breadcrumbs">
+                <li><a href="/">Reach Network</a></li>
+                <li><a href="/members">Members</a></li>
+                <li class="current"><a href="#">Login</a></li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="small-12 columns panel">
+            	<form action="" method="post">
+            		{% csrf_token %}
+            		{% if error %}
+            			<div data-alert class="alert-box alert">
+            				{{error}}
+            			</div>
+            		{% endif %}
+                    <div class="username">
+                        <label {% if form.username.errors %} class="error" {% endif %}>Username <small>Required</small>
+                            {{form.username}}
+                        </label>
+                        {% if form.username.errors %} 
+                            <small class="error">{{form.username.errors.as_text}}</small>
+                        {% endif %}
+                    </div>
+                    <div class="password">
+                        <label {% if form.password.errors %} class="error" {% endif %}>Password <small>Required</small>
+                            {{form.password}}
+                        </label>
+                        {% if form.password.errors %} 
+                            <small class="error">{{form.password.errors.as_text}}</small>
+                        {% endif %}
+                    </div>
+                  <button type="submit" class="medium button success right">Submit</button>
+                  <button class="medium warning button left" type="reset">Clear</button>
+            	</form>
+            </div>
+        </div>
+{% endblock %}

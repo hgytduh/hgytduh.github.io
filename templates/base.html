@@ -1,0 +1,99 @@
+<!doctype html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="/static/css/foundation.min.css" />
+        <link rel="stylesheet" href="/static/css/normalize.css"/>
+        <link rel="stylesheet" href="/static/css/app.css"/>
+        <script src="/static/js/vendor/modernizr.js"></script>
+        <script src="/static/js/vendor/jquery.js"></script>
+        {% block title %}
+        {% endblock %}
+    </head>
+    <body>
+        <div data-alert class="alert-box alert" id="JavaScriptAlert">
+            It appears that you don't have JavaScript enabled. Please <a href="http://www.enable-javascript.com/">enable JavaScript</a> or some parts of this site will not function correctly.
+        </div>
+        <div class="contain-to-grid">
+            <nav class="top-bar" data-topbar role="navigation">
+                <ul class="title-area">
+                    <li class="name"><h1><a href="/home">Reach Network</a></h1></li>
+                    <li class="toggle-topbar menu-icon"> <a href="#"><span>Menu</span></a></li> 
+                </ul>
+                <section class="top-bar-section">
+                    <ul class="right">
+                        <li id='homeNav'><a href="/home">Home</a></li>
+                        <li id='membersNav'><a href="/members">Members</a></li>
+                        <li id='applyNav'><a href="/apply">Apply For Staff</a></li>
+                        <li id='forumsNav'><a href="/forums">Forums</a></li>
+                        <li id='storeNav'><a href="http://reachnetprison.buycraft.net/" target="_blank">Store</a></li>
+                    </ul>
+                </section>
+            </nav>
+        </div>
+        <div class="row">
+            <div class="small-4 medium-2 medium-offset-10 small-offset-8" id="account">
+                    {% if user.is_authenticated %}
+                        <a href="/members/logout">Logout</a> | <a href="/members/{{user.username}}">Profile</a>
+                    {% else %}
+                        <a href="/members/register">Register</a> | <a href="/members/login">Login</a>
+                    {% endif %}
+            </div>
+        </div>
+        <script>
+            $(document).ready(function () {
+                $("#JavaScriptAlert").hide();
+            });
+        </script>
+        <div class="row" data-equalizer style="margin-top: 20px">
+            <div class="small-12 medium-8 columns centerText panel status">
+                <h2><b>192.99.44.123:26433</b></h2>
+            </div>
+            <div class="small-12 medium-3 columns panel status" >
+                <h6 class="online">Online : Loading...</h6>
+                <h6 class="players">Players : Loading...</h6>
+                <script>function LoadStats() {
+                        $(".online").html("Online : Loading...");
+                        $(".players").html("Players : Loading...");
+                        $.getJSON('http://api.syfaro.net/server/status?ip=192.99.44.123&port=26433', function (data) {
+                            if (data.online === true) {
+                                $(".status").removeClass("hoverTextoffline");
+                                $(".status").addClass("hoverTextonline");
+                                $(".online").html("Online : Yes");
+                                if (data.players === 0) {
+                                    $(".players").html("Players : Empty");
+                                } else {
+                                    $(".players").html("Players : " + data.players.now + "/" + data.players.max);
+                                }
+                            } else {
+                                $(".status").removeClass("hoverTextonline");
+                                $(".status").addClass("hoverTextoffline");
+                                $(".online").html("Online : No");
+                                $(".players").html("Players : 0");
+                            }
+                        });
+                    }
+                </script>
+                <a href="#" onclick="LoadStats()" class="button">Reload</a>
+            </div>
+        </div>
+        {% block content %}
+        {% endblock %}
+        <footer class="row footer">
+            <div class="small-12 column backText">
+                <p>Website created and designed by <a href="http://www.dackowebdesign.co.uk" target="_blank">Michal Dacko</a>.</p>
+            </div>
+        </footer>
+        <script src="/static/js/navLoader.js"></script>
+        <script src="/static/js/detailLoader.js"></script>
+        <script src="/static/js/foundation/foundation.js"></script>
+        <script src="/static/js/foundation/foundation.topbar.js"></script>
+        <script>LoadStats();</script>
+        {% block after %}
+        {% endblock %}
+        <script>
+            $(document).foundation();
+        </script>
+    </body>
+</html>

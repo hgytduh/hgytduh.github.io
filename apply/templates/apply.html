@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}
+        <title>Apply For Staff | Reach Network</title>
+{% endblock%}
+
+{% block content %}
+        <div id="pageID" data-page='apply'></div>
+        <div class="row">
+            <div class="small-12 columns panel main">
+                <h2>Apply For Staff</h2>
+                <p>If you want to apply for staff, fill in the bellow form with accurate details. Your application will then be considered by the server owner who will let you know if you get the position.</p>
+                <form data-abide method="post" action="/apply/validate/">
+                    {% csrf_token %}
+                    {% if wasError %}
+                        <div data-alert class="alert-box alert radius">
+                            There was some sort of error on my side, saving your data. Please ensure you haven't made any mistakes. If this keeps happening contact us directly.
+                        </div>
+                    {% endif %}
+                    <hr/>
+                    <div class="name-field">
+                        <label>Your name <small>required</small>
+                            <input name="name" type="text" required pattern="[a-z\sA-Z]+" placeholder="What should we call you..." value="{{name}}">
+                        </label>
+                    </div>
+                    <div class="email-field">
+                        <label>Email <small>required</small>
+                            <input name="email" type="email" required placeholder="This is the email we will be replying to..." value="{{email}}">
+                        </label>
+                    </div>
+                    <div class="ign-field">
+                        <label>Minecraft Name (IGN)<small>required</small>
+                            <input name="ign" type="text" pattern="[a-zA-z0-9]+" required placeholder="Your minecraft in-game name..." value="{{ign}}">
+                        </label>
+                    </div>
+                    <div class="position-field">
+                        <h4 class="header">Applying for:<small>(required)</small></h4>
+                        <label for="builder">
+                            <input name="position" type="radio" id="builder" required="" value="Builder" {% if position == "Builder" %}checked{% endif %}> Builder
+                        </label>
+                        <label for="guard">
+                            <input name="position" type="radio" id="guard" required="" value="Guard" {% if position == "Guard" %}checked{% endif %}> Guard
+                        </label>
+                        <label for="warden">
+                            <input name="position" type="radio" id="warden" required="" value="Warden" {% if position == "Warden" %}checked{% endif %}> Warden
+                        </label>
+                    </div>
+                    <label>Details:<small>required</small>
+                        <textarea rows="10" name="details" id="content" placeholder="Why should we pick you. Mention things like age, timezone, previous experience and anything that makes you deserve this position." required="">{{details}}</textarea>
+                    </label>
+                    <hr />
+                    <button type="submit" class="medium button right">Submit</button>
+                </form>
+            </div>
+        </div>
+{% endblock %}

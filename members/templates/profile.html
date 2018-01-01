@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}
+        <title>Survivors | ReachNetwork</title>
+{% endblock %}
+
+{% block content %}
+        <div id="pageID" data-page='members'></div>
+        <div class="row">
+            <ul class="breadcrumbs">
+                <li><a href="/">Reach Network</a></li>
+                <li><a href="/members">Members</a></li>
+                <li class="current"><a href="#">{{member.user.username}}</a></li>
+            </ul>
+        </div>
+        <div class="row panel">
+            <div class="small-12 medium-6 columns">
+                <h2>{{member.user.username}}</h2>
+                <h5>[{{member.title}}]</h5>
+            </div>
+            <div class="small-12 medium-6 columns">
+            {% if user.is_authenticated %}
+                <ul>
+                    <li>Email: {{member.user.email}}</li>
+                    <li>IGN: {{member.ign}}</li>
+                </ul>
+            {% else %}
+                <p><a href="/members/login">Log in</a> to see this content</p>
+            {% endif %}
+            </div>
+            {% if user.is_authenticated and user == member.user%}
+            <div class="small-6 columns">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="row collapse">
+                        <div class="small-3 columns">
+                            <span class="prefix">New Password</span>
+                        </div>
+                        <div class="small-7 columns">
+                                {{form.password}}
+                        </div>
+                        <div class="small-2 columns">
+                            <button type="submit" class="button warning postfix">Change</button>
+                        </div>
+                        {% if form.password.errors %} 
+                            <small class="error">{{form.password.errors.as_text}}</small>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+        <div class="row">
+            <div class="small-12 medium-5 columns">
+                <div class="row panel">
+                    <h4>Posts</h4>
+                </div>
+                {% for p in posts %}
+                <div class="row forumItem" data-url="/forums/{{p.topic.title}}/{{p.id}}">
+                    <h5>{{p.title}}</h5>
+                    <small>On: {{p.date}}</small>
+
+                </div>
+                {% endfor %}
+            </div>
+            <div class="small-12 medium-5 columns">
+                <div class="row panel">
+                    <h4>Replies</h4>
+                </div>
+                {% for r in replies %}
+                <div class="row forumItem" data-url="/forums/{{r.post.topic.title}}/{{r.post.id}}">
+                    <h5><u>{{r.title}}</u> in <u>{{r.post.title}}</u></h5> 
+                    <small>On: {{r.date}}</small>
+
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+{% endblock %}
+{% block after %}
+<script src="/static/js/forums.js"></script>
+{% endblock %}
